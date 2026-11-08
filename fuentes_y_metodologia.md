@@ -1,6 +1,6 @@
 # La Pampa | Explorador Agroclimático: fuentes y metodología
 
-Prototipo educativo para la exploración de información agroclimática. Propuesta de desarrollo: Área de Educación a Distancia, Facultad de Agronomía, UNLPam.
+Prototipo educativo para la exploración de información agroclimática. Lic. Juan Pablo Neveu.
 
 Datos generados el 8 de noviembre de 2026 (UTC). Período: 1 de enero de 2020 al 31 de diciembre de 2025 (2.192 días, seis años completos).
 

@@ -10,4 +10,4 @@ Prototipo educativo para la exploración de información agroclimática de la pr
 
 Fuentes: CHIRPS v3.0 y CHIRTS-ERA5 (Climate Hazards Center, UCSB), límites GADM 4.1. Procesado con herramientas del CGIAR Climate Data Hub.
 
-Propuesta de desarrollo: Área de Educación a Distancia, Facultad de Agronomía, UNLPam.
+Lic. Juan Pablo Neveu.
