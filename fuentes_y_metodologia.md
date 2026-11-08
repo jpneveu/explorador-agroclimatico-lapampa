@@ -65,14 +65,26 @@ El detalle está en `trazabilidad/qc_report.json`.
 
 ## 4. Limitaciones
 
-- **Escala.** Cada valor representa una celda de unos 5 km × 5 km, no un punto. Puede diferir de un pluviómetro o de una estación cercana.
+- **Escala y comparación con registros locales.** Cada valor del mapa representa una celda de 0,05° (≈ 5,5 km norte-sur × 4,5 km este-oeste en La Pampa). Los indicadores y los gráficos muestran la lámina media o la temperatura media de la provincia o del departamento elegido, no un punto. Por esa escala y por el error propio de toda estimación, los valores pueden diferir de las mediciones puntuales, como los pluviómetros del SMN o del INTA Anguil. Las diferencias son mayores a escala diaria y en las tormentas convectivas, frecuentes de primavera a comienzos del otoño, y se reducen en los acumulados mensuales y anuales. Comparar estos valores con registros locales es una actividad de aula recomendada.
 - **Precipitación diaria.** CHIRPS v3 diario distribuye en días los acumulados de 5 días (péntadas) usando ERA5. Los acumulados mensuales y anuales son más confiables que la lluvia de un día puntual. La cantidad de días con lluvia depende de esa desagregación y debe leerse con cautela.
-- **Temperatura.** CHIRTS-ERA5 es un producto **experimental**. En este prototipo **no** se contrastó con estaciones del SMN ni del INTA. Antes de usar los valores absolutos de temperatura, especialmente la mínima, se recomienda compararlos con registros de estaciones de la provincia.
+- **Temperatura.** CHIRTS-ERA5 es un producto **experimental**, validado por sus autores a escala global (Verdin et al., 2020). En este prototipo **no** se contrastó con estaciones de la provincia (SMN, INTA). Antes de usar los valores absolutos de temperatura, especialmente la mínima, se recomienda compararlos con registros de estaciones de la provincia.
 - **Período corto.** Seis años permiten describir la variabilidad interanual, pero no tendencias. Las diferencias entre dos años **no** son evidencia de cambio climático.
 - **Relaciones entre variables.** Las coincidencias que se ven en los gráficos (por ejemplo, entre temperatura y lluvia) son descriptivas y no implican causalidad.
 - **Límites administrativos.** Se usaron los límites de GADM 4.1. Pueden diferir en detalle de la cartografía oficial del IGN o de la Dirección Provincial de Catastro.
 
-## 5. Archivos
+## 5. Nota visible en el explorador
+
+Debajo del título, el explorador muestra una franja que se puede desplegar y ocultar, y que vuelve a aparecer cada vez que se abre:
+
+> **Estos datos son estimaciones, no mediciones de estación.** Pueden diferir de los registros locales.
+>
+> **Sobre estos datos.** La precipitación (CHIRPS v3) y las temperaturas (CHIRTS-ERA5) son estimaciones en grillas de ≈ 5 km, elaboradas con satélites, estaciones y reanálisis. Los indicadores y gráficos muestran la lámina media o la temperatura media de la provincia o del departamento elegido; el mapa muestra el valor de cada celda.
+>
+> Por esa escala y por el error propio de toda estimación, los valores pueden diferir de las mediciones puntuales, como los pluviómetros del SMN o del INTA Anguil. Las diferencias son mayores a escala diaria y en las tormentas convectivas de primavera a comienzos del otoño, y se reducen en los acumulados mensuales y anuales. Por el mismo motivo, los «días con precipitación» son el indicador menos preciso.
+>
+> Las temperaturas aún no fueron contrastadas con estaciones de la provincia, y seis años permiten observar la variabilidad entre años, no tendencias. Comparar estos valores con registros locales es una buena actividad para el aula.
+
+## 6. Archivos
 
 | Archivo | Contenido |
 |---|---|

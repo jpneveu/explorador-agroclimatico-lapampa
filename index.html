@@ -40,6 +40,24 @@ h1 .sep{color:var(--accent);font-weight:400;padding:0 .15em}
 .btn.primary:hover{background:var(--accent-ink)}
 .btn svg{width:16px;height:16px}
 
+/* Nota sobre los datos */
+.note{position:relative;display:flex;align-items:center;gap:10px;background:#FFF6E0;border:1px solid #EBD39A;border-radius:var(--r);padding:6px 8px 6px 12px;font-size:.86rem;color:#5A4410}
+.note>svg{flex:none;width:18px;height:18px;color:#A77A00}
+.note details{flex:1;min-width:0}
+.note summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.note summary::-webkit-details-marker{display:none}
+.note summary b{color:#3F2F05}
+.note summary .more{color:var(--accent-ink);font-weight:700;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}
+.note details[open] summary .more::after{content:" ▴"}
+.note details:not([open]) summary .more::after{content:" ▾"}
+.note .note-body{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:20;background:var(--surface);color:var(--ink);border:1px solid #EBD39A;border-radius:var(--r);
+  box-shadow:0 12px 32px rgba(19,41,75,.18);padding:12px 16px;font-size:.88rem;line-height:1.5}
+.note .note-body p{margin:0 0 8px;max-width:95ch}
+.note .note-body p:last-child{margin-bottom:0}
+.note .note-body .link-btn{font-size:.88rem}
+.note-x{flex:none;border:0;background:transparent;cursor:pointer;color:#5A4410;width:28px;height:28px;border-radius:50%;font-size:1.1rem;line-height:1}
+.note-x:hover{background:#F6E6BC}
+
 /* Controles */
 .controls{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px}
 .ctl{display:flex;flex-direction:column;gap:3px;min-width:0}
@@ -157,6 +175,20 @@ dialog::backdrop{background:rgba(19,41,75,.35)}
     </div>
   </header>
 
+  <aside class="note" id="note" aria-label="Sobre estos datos">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor"/></svg>
+    <details id="noteDetails">
+      <summary><span><b>Estos datos son estimaciones, no mediciones de estación.</b> Pueden diferir de los registros locales.</span><span class="more">Ver más</span></summary>
+      <div class="note-body">
+        <p><b>Sobre estos datos.</b> La precipitación (CHIRPS v3) y las temperaturas (CHIRTS-ERA5) son estimaciones en grillas de ≈ 5 km, elaboradas con satélites, estaciones y reanálisis. Los indicadores y gráficos muestran la lámina media o la temperatura media de la provincia o del departamento elegido; el mapa muestra el valor de cada celda.</p>
+        <p>Por esa escala y por el error propio de toda estimación, los valores pueden diferir de las mediciones puntuales, como los pluviómetros del SMN o del INTA Anguil. Las diferencias son mayores a escala diaria y en las tormentas convectivas de primavera a comienzos del otoño, y se reducen en los acumulados mensuales y anuales. Por el mismo motivo, los «días con precipitación» son el indicador menos preciso.</p>
+        <p>Las temperaturas aún no fueron contrastadas con estaciones de la provincia, y seis años permiten observar la variabilidad entre años, no tendencias. Comparar estos valores con registros locales es una buena actividad para el aula.</p>
+        <p><button class="link-btn" type="button" id="noteMethod">Ver fuentes y metodología</button></p>
+      </div>
+    </details>
+    <button class="note-x" type="button" id="noteClose" aria-label="Ocultar la nota sobre los datos">✕</button>
+  </aside>
+
   <section class="controls" aria-label="Controles de visualización">
     <div class="ctl"><label for="selYear">Año</label><select id="selYear"></select></div>
     <div class="ctl"><label for="selMonth">Mes</label><select id="selMonth"></select></div>
@@ -264,9 +296,9 @@ dialog::backdrop{background:rgba(19,41,75,.35)}
   <ul id="mQc"></ul>
   <h3>Limitaciones</h3>
   <ul>
-    <li>Los valores representan celdas de unos 5 km, no un punto. Pueden diferir de un pluviómetro o una estación local.</li>
+    <li>Los valores representan celdas de unos 5 km o láminas medias de un área, no un punto. Por esa escala y por el error propio de toda estimación, pueden diferir de los pluviómetros y estaciones locales (SMN, INTA Anguil). Las diferencias son mayores día a día y en las tormentas convectivas de primavera a comienzos del otoño, y se reducen en los acumulados mensuales y anuales.</li>
     <li>CHIRPS v3 diario distribuye en días un acumulado de 5 días usando ERA5. La lluvia de un día puntual y la cuenta de días con lluvia son menos confiables que los acumulados mensuales.</li>
-    <li>CHIRTS-ERA5 es un producto experimental. No se contrastó con estaciones del SMN o del INTA en este prototipo; se recomienda hacerlo antes de usar los valores absolutos de temperatura.</li>
+    <li>CHIRTS-ERA5 es un producto experimental, validado por sus autores a escala global. En este prototipo no se contrastó con estaciones de la provincia; se recomienda hacerlo antes de usar los valores absolutos de temperatura.</li>
     <li>El promedio 2020–2025 que se muestra como referencia no es una normal climática (que requiere 30 años).</li>
     <li>Las diferencias entre años muestran variabilidad interanual y no son evidencia de cambio climático.</li>
   </ul>
@@ -562,6 +594,12 @@ function bind(){
   $("btnReset").onclick=()=>{Object.assign(S,DEF);cursor=null;$("cellInfo").innerHTML='<span class="hint">Hacé clic sobre el mapa (o usá Tab y las flechas, y Enter) para consultar una celda de 0,05° (≈ 5 km).</span>';sync();render();};
   $("btnQ").onclick=()=>$("dlgQ").showModal();
   $("btnM").onclick=()=>$("dlgM").showModal();
+  // Nota sobre los datos: se despliega sin mover el tablero y se puede ocultar (vuelve al abrir de nuevo)
+  const nd=$("noteDetails");
+  $("noteClose").onclick=()=>{$("note").hidden=true;$("btnM").focus();};
+  $("noteMethod").onclick=()=>{nd.open=false;$("dlgM").showModal();};
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&nd.open){nd.open=false;nd.querySelector("summary").focus();}});
+  document.addEventListener("click",e=>{if(nd.open&&!$("note").contains(e.target))nd.open=false;});
   document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>b.closest("dialog").close());
   document.querySelectorAll("dialog").forEach(d=>d.addEventListener("click",e=>{if(e.target===d)d.close();}));
   document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{
